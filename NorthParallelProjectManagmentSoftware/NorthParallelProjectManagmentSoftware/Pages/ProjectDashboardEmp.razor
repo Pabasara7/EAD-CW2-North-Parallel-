@@ -1,0 +1,58 @@
+﻿@page "/projectdashboardEmp"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@inject UserServices userServices 
+@inject ProjectServices projectServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+@if (user != null)
+{
+    <NavMenuEmp />
+    <div class="col1">
+
+            <h3>@userProject.ProjectName.ToString()</h3>
+            <br />
+            <p>Project Id : @userProject.ProjectId.ToString()</p>
+            <p>Company  : @userProject.ProjectCompany.CompanyName.ToString()</p>
+            <p>Description : @userProject.ProjectDescription.ToString()</p>
+            <p>Start Date : @userProject.ProjectStartDate.ToString("dd-MM-yyyy")</p>
+            <p>End Date : @userProject.ProjectEndDate.ToString("dd-MM-yyyy")</p>
+
+    </div>
+    }
+   
+
+}
+
+
+@code {
+
+    public User user = new User();
+    public User users = new User();
+
+    public User userNew = new User();
+    private string selectedString;
+    public Project userProject;
+    List<Company> company;
+    List<Project> project;
+
+    List<Project> projects;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await session.GetItemAsync<User>("SessionUser");
+        users = user;
+        Console.Write("Hello " + users.UserId);
+
+        userNew = await Task.Run(() => userServices.GetUserAsync(users.UserId));
+        userProject = userNew.UserAssignedProjects;
+
+    }
+
+
+}
+
+
+

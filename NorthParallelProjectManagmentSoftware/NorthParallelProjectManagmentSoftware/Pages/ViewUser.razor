@@ -1,0 +1,150 @@
+﻿@page "/viewUser/{Id}"
+
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@inject ProjectServices projectServices
+@inject UserServices userServices
+@inject TicketServices ticketServices    
+@inject IModalService Modal
+@using NorthParallelProjectManagmentSoftware.Data
+
+
+<NavMenu />
+<body>
+    <div class="col1">
+        <div class="head">
+
+            <button type="button" @onclick="editPage" class="btn btn-primary">Edit</button>
+            <button @onclick="@(() => { showModal = true; })" class="btn btn-danger">Delete</button>
+
+            @if (showModal)
+            {
+                <div class="modal fade show" id="myModal" style=" display: block;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">User Deletion</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this User?
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" @onclick="@deleteUser">Delete</button>
+                                <button type="button" class="btn btn-primary" @onclick="@(() => { showModal = false; })">Close</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-backdrop fade show"></div>
+
+            }
+
+
+        </div>
+
+        <h3>@user.UserName</h3>
+        <br />
+        <p>Company Id : @user.UserId</p>
+        <p>Email : @user.UserEmail</p>
+        <p>State : @user.UserState</p>
+        <p>Authority Level : @user.UserAuthorityLevel</p>
+        @if (user.UserAssignedProjects != null)
+        {
+            <p>Assigned Project : @user.UserAssignedProjects.ProjectName</p>
+        }
+        else
+        {
+
+            <p> Assigned Project : Not Assigned to project</p>
+
+        }
+        @if (user.UserAssignedCompany != null)
+        {
+            <p>Assigned Company : @user.UserAssignedCompany.CompanyName</p>
+        }
+        else
+        {
+
+            <p> Assigned Company : Not Assigned to company</p>
+
+        }
+
+
+    </div>
+    <div class="col2">
+        @if (tickets is null)
+        {
+            <p><em>Loading... !</em></p>
+        }
+        else
+        {
+
+            <table class="table table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Ticket Id</th>
+                        <th>Ticket Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tck in tickets)
+                    {
+
+                        <tr>
+                            <td>@tck.TicketId</td>
+                            <td>@tck.TicketName</td>
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+        }
+    </div>
+
+</body>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+    public string companyName;
+    public string projectName;
+    bool showModal = false;
+    User user = new User();
+    List<Tickets> tickets;
+    List<User> userlist;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await Task.Run(() => userServices.GetUserAsync(Convert.ToInt32(Id)));
+        tickets = await Task.Run(() => ticketServices.GetTicketByMuserAsync(user.UserName.ToString()));
+
+    }
+
+
+
+
+
+    protected async void deleteUser()
+    {
+        await userServices.DeleteUserAsync(user);
+        NavigationManager.NavigateTo("userdashboard");
+    }
+    void editPage()
+    {
+        NavigationManager.NavigateTo("editUser/" + Id);
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("userdashboard");
+    }
+}

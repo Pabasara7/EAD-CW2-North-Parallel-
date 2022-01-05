@@ -1,0 +1,221 @@
+﻿@page "/createTicket"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@inject TicketServices ticketServices
+@inject ProjectServices projectServices
+@inject UserServices userServices
+@using NorthParallelProjectManagmentSoftware.Data;
+@using System.Globalization
+
+
+<NavMenu />
+<div class="createForm">
+    <div class="instructions">
+        <h2>Create Ticket</h2>
+        <p>*Fill the below form to create ticket</p>
+    </div>
+    <div class="form">
+        <EditForm Model="@ticket">
+            <DataAnnotationsValidator />
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="ticketName" class="control-label">Ticket Name</label>
+                        <input form="ticketName" placeholder="Enter Ticket Name" class="form-control" @bind="@ticket.TicketName" />
+                        <ValidationMessage For="@(() => ticket.TicketName)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticketDescription" class="control-label">Select Company</label>
+
+                        <select name="compaines" @onchange="@OnSelect" id="companyDropdown">
+                            @if (company is null)
+                            {
+                                <p><em>Loading... !</em></p>
+                            }
+                            else
+                            {
+                                <option value="" disabled selected>Select Company</option>
+
+                                @foreach (var cmp in company)
+                                {
+                                    <option value="@cmp.CompanyName">@cmp.CompanyName</option>
+                                }
+                            }
+                        </select>
+                        <ValidationMessage For="@(() => ticket.TicketCompany)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="ticketDescription" class="control-label">Select Project</label>
+
+                        <select name="projects" @onchange="@OnSelectProject" id="projectsDropdown">
+                            @if (project is null)
+                            {
+                                <p><em>Loading... !</em></p>
+                            }
+                            else
+                            {
+                                <option value="" disabled selected>Select Project</option>
+
+                                @foreach (var prj in project)
+                                {
+                                    <option value="@prj.ProjectName">@prj.ProjectName</option>
+                                }
+                            }
+                        </select>
+
+                        <ValidationMessage For="@(() => ticket.TicketProject)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="userSelection" class="control-label">Select User</label>
+
+                        <select name="users" @onchange="@OnSelectUser" id="usersDropdown">
+                            @if (users is null)
+                            {
+                                <p><em>Loading... !</em></p>
+                            }
+                            else
+                            {
+                                <option value="" disabled selected>Select User</option>
+
+                                @foreach (var usr in users)
+                                {
+                                    <option value="@usr.UserName">@usr.UserName</option>
+                                }
+                            }
+                        </select>
+
+                        <ValidationMessage For="@(() => ticket.TicketAssignedUser)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticketDescription" class="control-label">Ticket Description</label>
+                        <input form="ticketDescription" placeholder="Enter Company Description" class="form-control" @bind="@ticket.TicketDescription" />
+                        <ValidationMessage For="@(() => ticket.TicketDescription)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="UserState" class="control-label">Ticeket Progress</label>
+                        <select @bind="@ticket.TicketProgress" class="form-control">
+                            <option value="">Select Ticket Progress</option>
+                            <option value="0% - Initiated">0% - Initiated</option>
+                            <option value="25% - Started">25% - Started</option>
+                            <option value="50% - Halfway">50% - Halfway</option>
+                            <option value="75% - Almost Completed">75% - Almost Completed</option>
+                            <option value="100% - Completed">100% - Completed</option>
+                        </select>
+                        <ValidationMessage For="@(() => ticket.TicketProgress)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticketDescription" class="control-label">Ticket Current State Update</label>
+                        <input form="ticketDescription" class="form-control" placeholder="Eg: Working on bug fixes" @bind="@ticket.TicketCurrentStateUpdate" />
+                        <ValidationMessage For="@(() => ticket.TicketCurrentStateUpdate)" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" @onclick="@createTicket" value="Create Ticket" />
+                        <input type="button" class="btn btn-danger" @onclick="@Cancel" value="  Back  " />
+
+                    </div>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+
+</div>
+@code {
+
+    public User user;
+
+    public string selectedProjectString;
+    public string selectedString;
+
+    public string selectedUserString;
+    Tickets ticket = new Tickets();
+
+    List<Company> company;
+    List<Project> project;
+    List<User> users;
+    List<User> usersList;
+    List<Project> projects;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await session.GetItemAsync<User>("SessionUser");
+
+        company = await Task.Run(() => companyServices.GetCompanyByMCompanyAsync(user.MainCompany));
+        project = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(user.MainCompany));
+        projects = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(user.MainCompany));
+        users = await Task.Run(() => userServices.GetUserMCompanyAsync(user.MainCompany));
+        usersList = await Task.Run(() => userServices.GetUserMCompanyAsync(user.MainCompany));
+
+    }
+
+    protected async void createTicket()
+    {
+        ticket.TicketStartDate = DateTime.Now;
+        ticket.MainCompany = user.MainCompany;
+        await ticketServices.InsertTicketAsync(ticket);
+        NavigationManager.NavigateTo("ticketdashboard");
+
+    }
+
+    async void OnSelect(ChangeEventArgs e)
+    {
+        selectedString = e.Value.ToString();
+
+        foreach (var cmp in company)
+        {
+
+            if (cmp.CompanyName == selectedString)
+            {
+
+                ticket.TicketCompany = cmp;
+            }
+        }
+        project = projects.Where(f => f.ProjectCompany.CompanyName.Equals(selectedString)).ToList();
+    }
+
+    async void OnSelectProject(ChangeEventArgs e)
+    {
+        selectedProjectString = e.Value.ToString();
+
+        foreach (var prj in project)
+        {
+
+            if (prj.ProjectName == selectedProjectString)
+            {
+
+                ticket.TicketProject = prj;
+            }
+        }
+        users = usersList.Where(f => f.UserAssignedProjects.ProjectName.ToString().Equals(selectedProjectString)).ToList();
+    }
+
+    async void OnSelectUser(ChangeEventArgs e)
+    {
+        selectedUserString = e.Value.ToString();
+
+        foreach (var usr in users)
+        {
+
+            if (usr.UserName == selectedUserString)
+            {
+
+                ticket.TicketAssignedUser = usr;
+            }
+        }
+    }
+    public void Cancel()
+    {
+
+        NavigationManager.NavigateTo("ticketdashboard");
+    }
+
+}

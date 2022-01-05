@@ -1,0 +1,24 @@
+﻿.col1 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}
+
+.head {
+    float: right;
+    font-family: HP Simplified Hans;
+}
+
+.col2 {
+    overflow-y: scroll;
+    border-radius: 7px;
+    margin: 5px;
+}
+
+table {
+    font-family: HP Simplified Hans;
+}

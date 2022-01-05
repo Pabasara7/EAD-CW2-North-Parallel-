@@ -1,0 +1,80 @@
+﻿@page "/editTicket/{Id}"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject ProjectServices projectServices
+@inject TicketServices ticketServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+<NavMenu />
+<div class="head">
+    <h2>Edit Ticket Details</h2>
+</div>
+
+<div class="editForm">
+    <EditForm Model="@ticket">
+        <DataAnnotationsValidator />
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="ticketName" class="control-label">ticket Name</label>
+                    <input form="ticketName" class="form-control" @bind="@ticket.TicketName" />
+                    <ValidationMessage For="@(()=>ticket.TicketName)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="ticketDescription" class="control-label">Ticket Description</label>
+                    <input form="ticketDescription" class="form-control" @bind="@ticket.TicketDescription" />
+
+                    <ValidationMessage For="@(()=>ticket.TicketDescription)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="UserState" class="control-label">Ticeket Progress</label>
+                    <select @bind="@ticket.TicketProgress" class="form-control">
+                        <option value="">Select Ticket Progress</option>
+                        <option value="0% - Initiated">0% - Initiated</option>
+                        <option value="25% - Started">25% - Started</option>
+                        <option value="50% - Halfway">50% - Halfway</option>
+                        <option value="75% - Almost Completed">75% - Almost Completed</option>
+                        <option value="100% - Completed">100% - Completed</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ticketDescription" class="control-label">Ticket Current State Update</label>
+                    <input form="ticketDescription" class="form-control" placeholder="Eg: Working on bug fixes" @bind="@ticket.TicketCurrentStateUpdate" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary" @onclick="@updateTicket" value="Update Ticket" />
+                    <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+                </div>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+    Tickets ticket = new Tickets();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ticket = await Task.Run(() => ticketServices.GetTicketAsync(Convert.ToInt32(Id)));
+    }
+    protected async void updateTicket()
+    {
+        await ticketServices.UpdateTicketAsync(ticket);
+        NavigationManager.NavigateTo("viewTicket/"+Id);
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("viewTicket/" + Id);
+    }
+}

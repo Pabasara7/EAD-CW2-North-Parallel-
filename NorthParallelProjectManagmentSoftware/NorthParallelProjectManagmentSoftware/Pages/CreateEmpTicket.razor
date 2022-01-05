@@ -1,0 +1,118 @@
+﻿@page "/createEmpTicket"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@inject TicketServices ticketServices
+@inject ProjectServices projectServices
+@inject UserServices userServices
+@using NorthParallelProjectManagmentSoftware.Data;
+@using System.Globalization
+
+@if (user != null)
+{
+
+
+    <NavMenuEmp/>
+    <div class="createForm">
+        <div class="instructions">
+            <h2>Create Ticket</h2>
+            <p>*Fill the below form to create ticket</p>
+        </div>
+        <div class="form">
+            <EditForm Model="@ticket">
+                <DataAnnotationsValidator />
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="ticketName" class="control-label">Ticket Name</label>
+                            <input form="ticketName" placeholder="Enter Ticket Name" class="form-control" @bind="@ticket.TicketName" />
+                            <ValidationMessage For="@(() => ticket.TicketName)" />
+                        </div>
+
+                        
+                       
+
+                        <div class="form-group">
+                            <label for="ticketDescription" class="control-label">Ticket Description</label>
+                            <input form="ticketDescription" placeholder="Enter Company Description" class="form-control" @bind="@ticket.TicketDescription" />
+                            <ValidationMessage For="@(() => ticket.TicketDescription)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="UserState" class="control-label">Ticeket Progress</label>
+                            <select @bind="@ticket.TicketProgress" class="form-control">
+                                <option value="">Select Ticket Progress</option>
+                                <option value="0% - Initiated">0% - Initiated</option>
+                                <option value="25% - Started">25% - Started</option>
+                                <option value="50% - Halfway">50% - Halfway</option>
+                                <option value="75% - Almost Completed">75% - Almost Completed</option>
+                                <option value="100% - Completed">100% - Completed</option>
+                            </select>
+                            <ValidationMessage For="@(() => ticket.TicketProgress)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ticketDescription" class="control-label">Ticket Current State Update</label>
+                            <input form="ticketDescription" class="form-control" placeholder="Eg: Working on bug fixes" @bind="@ticket.TicketCurrentStateUpdate" />
+                            <ValidationMessage For="@(() => ticket.TicketCurrentStateUpdate)" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" @onclick="@createTicket" value="Create Ticket" />
+                            <input type="button" class="btn btn-danger" @onclick="@Cancel" value="  Back  " />
+
+                        </div>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+
+    </div>}
+
+
+
+@code {
+
+    public User user;
+
+    public User users =new User();
+    public Project project;
+    public Company company;
+    public string selectedUserString;
+    Tickets ticket = new Tickets();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await session.GetItemAsync<User>("SessionUser");
+        users = await Task.Run(() => userServices.GetUserAsync(Convert.ToInt32(user.UserId)));
+        project = await Task.Run(() => projectServices.GetProjectByuserId(user.UserId));
+
+        company = await Task.Run(() => companyServices.GetcompanyByuserId(user.UserId));
+    }
+
+    protected async void createTicket()
+    {
+        ticket.TicketStartDate = DateTime.Now;
+        ticket.MainCompany = user.MainCompany;
+        ticket.TicketAssignedUser = users;
+        ticket.TicketCompany = company;
+        ticket.TicketProject = project;
+        await ticketServices.InsertTicketAsync(ticket);
+        NavigationManager.NavigateTo("ticketdashboard");
+
+
+
+    }
+
+    public void Cancel()
+    {
+
+        NavigationManager.NavigateTo("ticketdashboard");
+    }
+
+}

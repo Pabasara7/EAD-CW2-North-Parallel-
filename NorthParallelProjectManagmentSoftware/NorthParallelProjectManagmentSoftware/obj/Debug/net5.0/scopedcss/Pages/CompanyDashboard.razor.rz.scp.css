@@ -1,0 +1,31 @@
+
+.head[b-n2o5ud4bjs] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    margin-top: 1%;
+    padding-left: 10px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 1%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.btn[b-n2o5ud4bjs] {
+    float: right;
+    margin-right: 1%;
+}
+
+table[b-n2o5ud4bjs] {
+    font-family: HP Simplified Hans;
+}
+
+.col1[b-n2o5ud4bjs] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}

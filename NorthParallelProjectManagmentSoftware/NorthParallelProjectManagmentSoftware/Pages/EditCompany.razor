@@ -1,0 +1,69 @@
+﻿@page "/editCompany/{Id}"
+
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+<NavMenu />
+<div class="head">
+    <h2>Edit Company Details</h2>
+</div>
+
+<div class="editForm">
+    <EditForm Model="@company">
+        <DataAnnotationsValidator />
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="ticketName" class="control-label">Company Name</label>
+                    <input form="ticketName" class="form-control" @bind="@company.CompanyName" />
+                    <ValidationMessage For="@(()=>company.CompanyName)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="ticketDescription" class="control-label">Company Description</label>
+                    <input form="ticketDescription" class="form-control" @bind="@company.CompanyDescription" />
+                    <ValidationMessage For="@(()=>company.CompanyDescription)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="ticketDescription" class="control-label">Company Joined Date</label>
+                    <input form="ticketDescription" type="date" class="form-control" @bind="@company.CompanyJoinedDate" />
+                    <ValidationMessage For="@(()=>company.CompanyJoinedDate)" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" @onclick="@updateCompany" value="Update Company" />
+                    <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+                </div>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+    Company company = new Company(); 
+    protected override async Task OnInitializedAsync()
+    {
+        company = await Task.Run(() => companyServices.GetCompanyAsync(Convert.ToInt32(Id)));
+    }
+    protected async void updateCompany()
+    {
+        await companyServices.UpdateCompanyAsync(company);
+        NavigationManager.NavigateTo("companydashboard");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("companydashboard");
+    }
+
+}

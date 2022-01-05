@@ -1,0 +1,118 @@
+﻿@page "/viewCompany/{Id}"
+
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@inject ProjectServices projectServices
+@inject IModalService Modal
+@using NorthParallelProjectManagmentSoftware.Data
+
+
+<NavMenu />
+<body>
+    <div class="col1">
+        <div class="head">
+
+            <button type="button" @onclick="editPage" class="btn btn-primary">Edit</button>
+            <button @onclick="@(() => { showModal = true; })" class="btn btn-danger">Delete</button>
+
+            @if (showModal)
+            {
+                <div class="modal fade show" id="myModal" style=" display: block;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Company Deletion</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this Company?
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" @onclick="@deleteCompany">Delete</button>
+                                <button type="button" class="btn btn-primary" @onclick="@(() => { showModal = false; })">Close</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-backdrop fade show"></div>
+
+            }
+
+
+        </div>
+
+        <h3>@company.CompanyName</h3>
+        <br />
+        <p>Company Id : @company.CompanyId</p>
+        <p>Description : @company.CompanyDescription</p>
+        <p>Joined Date : @company.CompanyJoinedDate.ToString("dd-MM-yyyy")</p>
+
+    </div>
+    <div class="col2">
+        @if (project is null)
+        {
+            <p><em>Loading... !</em></p>
+        }
+        else
+        {
+
+            <table class="table table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Project Id</th>
+                        <th>Project Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var prj in project)
+                    {
+
+                        <tr>
+                            <td>@prj.ProjectId</td>
+                            <td>@prj.ProjectName</td>
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+        }
+    </div>
+
+</body>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+    bool showModal = false;
+    Company company = new Company();
+    List<Project> project;
+
+    protected override async Task OnInitializedAsync()
+    {
+        company = await Task.Run(() => companyServices.GetCompanyAsync(Convert.ToInt32(Id)));
+        project = await Task.Run(() => projectServices.GetProjectByCompanyAsync(company.CompanyName));
+
+    }
+    protected async void deleteCompany()
+    {
+        await companyServices.DeleteCompanyAsync(company);
+        NavigationManager.NavigateTo("companydashboard");
+    }
+    void editPage()
+    {
+        NavigationManager.NavigateTo("editCompany/" + Id);
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("companydashboard");
+    }
+}

@@ -1,0 +1,189 @@
+﻿@page "/createUser"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject UserServices userservices
+@inject CompanyServices companyServices
+@inject ProjectServices projectServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+<NavMenu/>
+<div class="createForm">
+    <div class="instructions">
+        <h2>Create User</h2>
+        <p>*Fill the below form to create user</p>
+    </div>
+    <div class="form">
+        <EditForm Model="@user">
+            <DataAnnotationsValidator />
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="username" class="control-label">Username</label>
+                        <input form="username" placeholder="Enter username" class="form-control" @bind="@user.UserName" required />
+                        <ValidationMessage For="@(()=>user.UserName)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="UserAuthorityLevel" class="control-label"></label>
+                        <select @bind="@user.UserAuthorityLevel" class="form-control">
+                            <option value="">Select User Authority Level</option>
+                            <option value="Administrator">Administrator</option>
+                            <option value="Employee">Employee</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ticketDescription" class="control-label">Select Company</label>
+
+                        <select name="compaines" @onchange="@OnSelect" id="companyDropdown">
+                            @if (company is null)
+                            {
+                                <p><em>Loading... !</em></p>
+                            }
+                            else
+                            {
+                                <option value="" disabled selected>Select Company</option>
+
+                                @foreach (var cmp in company)
+                                {
+                                    <option value="@cmp.CompanyName">@cmp.CompanyName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ticketDescription" class="control-label">Select Project</label>
+
+                        <select name="projects" @onchange="@OnSelectProject" id="projectsDropdown">
+                            @if (project is null)
+                            {
+                                <p><em>Loading... !</em></p>
+                            }
+                            else
+                            {
+                                <option value="" disabled selected>Select Project</option>
+
+                                @foreach (var prj in project)
+                                {
+                                    <option value="@prj.ProjectName">@prj.ProjectName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="userState" class="control-label"></label>
+                        <select @bind="@user.UserState" class="form-control">
+                            <option value="">Select User State</option>
+                            <option value="Active">Active</option>
+                            <option value="Deactive">Deactive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail" class="control-label">User Email</label>
+                        <input form="ticketDescription" type="email" class="form-control" @bind="@user.UserEmail" />
+                        <ValidationMessage For="@(()=>user.UserEmail)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="control-label">User Password</label>
+                        <input form="password" placeholder="Enter Password" type="password" class="form-control" @bind="@user.UserPassword" required />
+                        <ValidationMessage For="@(()=>user.UserPassword)" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="repassword" class="control-label">Re enter Password</label>
+                        <input form="repassword" placeholder="Re-enter Password" type="password" class="form-control" @bind="@confPassword" required />
+                        <p class="aler">@msg</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success btn-lg" @onclick="@CreateEmployee" value="Create User" />
+                        <input type="button" class="btn btn-danger btn-lg" @onclick="@Cancel" value="  Back  " />
+                    </div>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    public string selectedString;
+    public string confPassword;
+    public string msg;
+    public User userSession;
+    public string selectedProjectString;
+    User user = new User();
+    List<Company> company;
+    List<Project> project;
+
+    List<Project> projects;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        userSession = await session.GetItemAsync<User>("SessionUser");
+        company = await Task.Run(() => companyServices.GetCompanyByMCompanyAsync(userSession.MainCompany));
+        project = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(userSession.MainCompany));
+        projects = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(userSession.MainCompany));
+    }
+
+    protected async void CreateEmployee()
+    {
+        if (user.UserPassword != confPassword)
+        {
+
+            msg = "Passwords do not match";
+        }
+        else
+        {
+            user.MainCompany = userSession.MainCompany;
+            await userservices.InsertUserAsync(user);
+            NavigationManager.NavigateTo("userdashboard");
+        }
+    }
+    async void OnSelect(ChangeEventArgs e)
+    {
+        selectedString = e.Value.ToString();
+
+        foreach (var cmp in company)
+        {
+
+            if (cmp.CompanyName == selectedString)
+            {
+
+                user.UserAssignedCompany = cmp;
+            }
+        }
+        project = projects.Where(f => f.ProjectCompany.CompanyName.Equals(selectedString)).ToList();
+    }
+
+    async void OnSelectProject(ChangeEventArgs e)
+    {
+        selectedProjectString = e.Value.ToString();
+
+        foreach (var prj in project)
+        {
+
+            if (prj.ProjectName == selectedProjectString)
+            {
+
+                user.UserAssignedProjects = prj;
+            }
+        }
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("userdashboard");
+    }
+
+}

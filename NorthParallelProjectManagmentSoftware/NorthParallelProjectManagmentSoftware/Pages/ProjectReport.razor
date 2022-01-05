@@ -1,0 +1,261 @@
+﻿@page "/projectReport"
+
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject UserServices userservices
+@inject TicketServices ticketServices
+@inject CompanyServices companyServices
+@inject ProjectServices projectServices
+@using NorthParallelProjectManagmentSoftware.Data;
+<NavMenu />
+<div class="createForm">
+    <div class="instructions">
+        <h2>Generate Report on project</h2>
+        <p>*Fill the below form to create user</p>
+    </div>
+    <div class="form">
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="form-group">
+                    <label for="ticketDescription" class="control-label">Select Company</label>
+
+                    <select name="compaines" @onchange="@OnSelect" id="companyDropdown">
+                        @if (company is null)
+                        {
+                            <p><em>Loading... !</em></p>
+                        }
+                        else
+                        {
+                            <option value="" disabled selected>Select Company</option>
+
+                            @foreach (var cmp in company)
+                            {
+                                <option value="@cmp.CompanyName">@cmp.CompanyName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ticketDescription" class="control-label">Select Project</label>
+
+                    <select name="projects" @onchange="@OnSelectProject" id="projectsDropdown">
+                        @if (project is null)
+                        {
+                            <p><em>Loading... !</em></p>
+                        }
+                        else
+                        {
+                            <option value="" disabled selected>Select Project</option>
+
+                            @foreach (var prj in project)
+                            {
+                                <option value="@prj.ProjectName">@prj.ProjectName</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success btn-lg" @onclick="@generateReport" value="Generate Report" />
+                    <input type="button" class="btn btn-danger btn-lg" @onclick="@Cancel" value="  Back  " />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@if (report == true)
+{
+
+    <h2 class="mainHeading">Project : @selectedProjectString Status Report</h2>
+    <div class="grid">
+
+        <div class="col2">
+            <h2>No. of users in project @selectedProjectString : @noOfUsers</h2>
+            @if (projectUser is null)
+            {
+                <p><em>Loading... !</em></p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>User Id</th>
+                            <th>User Name</th>
+                            <th>User State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var usr in projectUser)
+                        {
+                            <tr>
+                                <td>@usr.UserId</td>
+                                <td>@usr.UserName</td>
+                                <td>@usr.UserState</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+        <div class="col3">
+            <div class="col2">
+                <h2>No. of tickets in @selectedProjectString : @noOfTickets</h2>
+                <p>No. of tickets in Completed : @completedTickets</p>
+                <p>No. of tickets in pending : @pendingTickets</p>
+                @if (projectTicket is null)
+                {
+                    <p><em>Loading... !</em></p>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ticket Id</th>
+                                <th>Ticket Name</th>
+                                <th>Ticket Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var tck in projectTicket)
+                            {
+                                <tr>
+                                    <td>@tck.TicketId</td>
+                                    <td>@tck.TicketName</td>
+                                    <td>@tck.TicketProgress</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+}
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    public string selectedString;
+    public string output;
+    public string confPassword;
+    public int completedTickets = 0;
+    public int noOfTickets;
+    public int pendingTickets = 0;
+    public User userSession;
+    public string selectedProjectString;
+    User user = new User();
+    List<Company> company;
+    List<Project> project;
+    public bool report = false;
+    List<Project> projects;
+    public DateTime toDate;
+    public int noOfUsers;
+    public DateTime fromDate=DateTime.Now;
+    List<User> projectUsers;
+    List<Tickets> projectTickets;
+
+    List<Tickets> projectTicket;
+    List<User> projectUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        userSession = await session.GetItemAsync<User>("SessionUser");
+        company = await Task.Run(() => companyServices.GetCompanyByMCompanyAsync(userSession.MainCompany));
+
+        projectUsers = await Task.Run(() => userservices.GetUserMCompanyAsync(userSession.MainCompany));
+        projectUser = await Task.Run(() => userservices.GetUserMCompanyAsync(userSession.MainCompany));
+
+        project = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(userSession.MainCompany));
+        projects = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(userSession.MainCompany));
+
+        projectTickets = await Task.Run(() => ticketServices.GetTicketByMCompanyAsync(userSession.MainCompany));
+        projectTicket = await Task.Run(() => ticketServices.GetTicketByMCompanyAsync(userSession.MainCompany));
+    }
+
+    protected async void generateReport()
+
+    {
+        report = true;
+        getProjectDetails();
+        getTicketDetails();
+       
+    }
+
+    public void getProjectDetails()
+    {
+        projectUser = projectUsers.Where(f => f.UserAssignedProjects.ProjectName.Equals(selectedProjectString)).ToList();
+        noOfUsers = projectUser.Count();
+    }
+
+    public void getTicketDetails()
+    {
+
+        projectTicket = projectTickets.Where(f => f.TicketProject.ProjectName.Equals(selectedProjectString)).ToList();
+        noOfTickets = projectTicket.Count();
+        foreach (var prjtkt in projectTicket)
+        {
+
+            if (prjtkt.TicketProgress == "100 % -Completed")
+            {
+
+                completedTickets = completedTickets + 1;
+
+            }
+            else
+            {
+
+                pendingTickets = pendingTickets + 1;
+            }
+        }
+
+    }
+    async void OnSelect(ChangeEventArgs e)
+    {
+        selectedString = e.Value.ToString();
+
+        foreach (var cmp in company)
+        {
+
+            if (cmp.CompanyName == selectedString)
+            {
+
+                user.UserAssignedCompany = cmp;
+            }
+        }
+        project = projects.Where(f => f.ProjectCompany.CompanyName.Equals(selectedString)).ToList();
+    }
+
+    async void OnSelectProject(ChangeEventArgs e)
+    {
+        selectedProjectString = e.Value.ToString();
+
+        foreach (var prj in project)
+        {
+
+            if (prj.ProjectName == selectedProjectString)
+            {
+
+                user.UserAssignedProjects = prj;
+            }
+        }
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("home");
+    }
+
+}

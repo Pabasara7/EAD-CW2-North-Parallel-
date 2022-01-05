@@ -1,0 +1,127 @@
+﻿@page "/companydashboard"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@inject ProjectServices projectServices
+@inject UserServices userServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+@if (@user != null)
+{
+    @*@if (userAuthLevel=="Administrator")
+    {*@
+
+        <NavMenu />
+        <div class=" head">
+            <button type="button" class="btn btn-success" @onclick="@createCompany">+ Create Company</button>
+
+            <h2 class="heading">Companies</h2>
+
+        </div>
+       
+        @if (company is null )
+        {
+            <p><em>Loading... !</em></p>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Company Id</th>
+                        <th>Compnay Name</th>
+                        <th>Compnay Description</th>
+                        <th>Company Joined Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cmp in company)
+                    {
+                        <tr>
+                            <td>@cmp.CompanyId</td>
+                            <a href="viewCompany/@cmp.CompanyId">
+
+                            <td>@cmp.CompanyName</td>
+                            </a>
+
+                            <td>@cmp.CompanyDescription</td>
+                            <td>@cmp.CompanyJoinedDate.ToString("dd-MM-yyyy")</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    //}
+
+    @*else
+    {
+        <NavMenuEmp />
+        <div class="col1">
+
+            @if (usersCompany != null)
+            {
+
+            <h3>@usersCompany.CompanyName</h3>
+            <br />
+            <p>Company Id : @usersCompany.CompanyId</p>
+            <p>Description : @usersCompany.CompanyDescription</p>
+            <p>Joined Date : @usersCompany.CompanyJoinedDate.ToString("dd-MM-yyyy")</p>
+            }
+            else { 
+            
+            }
+
+        </div>
+    }*@
+}
+
+
+@code {
+
+    public User user = new User();
+    public User users = new User();
+
+    private string selectedString;
+    public Project userProject;
+    public string userAuthLevel;
+    List<Company> company;
+    public Company usersCompany;
+    public int compId;
+    List<Project> projects;
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            user = await session.GetItemAsync<User>("SessionUser");
+
+            users.MainCompany = user.MainCompany;
+
+            company = await Task.Run(() => companyServices.GetCompanyByMCompanyAsync(users.MainCompany));
+            @*compId = user.UserAssignedCompany.CompanyId;
+            usersCompany = await Task.Run(() => companyServices.GetCompanyAsync(compId));*@
+
+            StateHasChanged();
+        }
+    }
+
+
+    public void createCompany()
+    {
+
+        NavigationManager.NavigateTo("createCompany");
+    }
+
+    public void home()
+    {
+
+        NavigationManager.NavigateTo("home");
+    }
+
+
+}
+
+
+

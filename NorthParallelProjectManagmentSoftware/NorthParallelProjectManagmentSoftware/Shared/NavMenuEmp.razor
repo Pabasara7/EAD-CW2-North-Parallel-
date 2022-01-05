@@ -1,0 +1,64 @@
+﻿@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@using NorthParallelProjectManagmentSoftware.Data;
+
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <div class="container-fluid">
+        <a class="navtite" href="home"><b>NORTH <br> PARALLEL</b></a>
+        <button class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="navitem">
+                    <a class="navoption" href="home"><span class="oi oi-home"><b class="menuItem">Home</b></span></a>
+                </li>
+               <li class="navitem">
+                    <a class="navoption" href="ticketdashboard"><span class="oi oi-clipboard"><b class="menuItem">Tickets</b></span></a>
+                </li>
+
+                <li class="item">
+                    <a class="navoption" @onclick="account"><span class="oi oi-person"><b class="menuItem">Account</b></span></a>
+                </li>
+
+                <li class="navitemLogout">
+                    <a class="navoption" @onclick="logout"><span class="oi oi-power-standby"><b class="menuItem">Logout</b></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@code {
+
+    public User user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await session.GetItemAsync<User>("SessionUser");
+
+
+    }
+
+
+    public void logout()
+    {
+
+        session.ClearAsync();
+        user = new User();
+        Console.Write(user.UserName + " hello");
+        NavigationManager.NavigateTo("");
+    }
+
+    public void account()
+    {
+
+        NavigationManager.NavigateTo("account/" + user.UserId);
+    }
+}

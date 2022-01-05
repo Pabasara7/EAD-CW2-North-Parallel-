@@ -1,0 +1,75 @@
+﻿@page "/editProject/{Id}"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject ProjectServices projectServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+<NavMenu />
+<div class="head">
+    <h2>Edit Project Details</h2>
+</div>
+
+<div class="editForm">
+    <EditForm Model="@project">
+        <DataAnnotationsValidator />
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="ticketName" class="control-label">Project Name</label>
+                    <input form="ticketName" class="form-control" @bind="@project.ProjectName" />
+                    <ValidationMessage For="@(()=>project.ProjectName)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="ticketDescription" class="control-label">Project Description</label>
+                    <input form="ticketDescription" class="form-control" @bind="@project.ProjectDescription" />
+
+                    <ValidationMessage For="@(()=>project.ProjectDescription)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="ticketDescription" class="control-label">Project Start Date (mm/dd/yyyy)</label>
+                    <input form="ticketDescription" type="date" class="form-control" @bind="@project.ProjectStartDate" />
+
+                    <ValidationMessage For="@(()=>project.ProjectStartDate)" />
+                </div>
+                <div class="form-group">
+                    <label for="ticketDescription" class="control-label">Project End Date (mm/dd/yyyy)</label>
+                    <input form="ticketDescription" type="date" class="form-control" @bind="@project.ProjectEndDate" />
+
+                    <ValidationMessage For="@(()=>project.ProjectEndDate)" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary" @onclick="@updateProject" value="Update Project" />
+                    <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+                </div>
+            </div>
+        </div>
+        </EditForm>
+</div>
+
+        @code {
+
+            [Parameter]
+            public string Id { get; set; }
+            Project project = new Project();
+
+            protected override async Task OnInitializedAsync()
+            {
+                project = await Task.Run(() => projectServices.GetProjectAsync(Convert.ToInt32(Id)));
+            }
+            protected async void updateProject()
+            {
+                await projectServices.UpdateProjectAsync(project);
+                NavigationManager.NavigateTo("projectdashboard");
+            }
+            void Cancel()
+            {
+                NavigationManager.NavigateTo("viewProject/" + Id);
+            }
+        }

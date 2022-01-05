@@ -1,0 +1,57 @@
+.grid[b-eypod7j6la] {
+    padding-top: 4%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 10px;
+}
+
+#icon[b-eypod7j6la] {
+    padding-top:3%;
+    padding-left:3%;
+}
+
+.col1[b-eypod7j6la] {
+    grid-row-end: span 3;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 40px;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col2[b-eypod7j6la] {
+    overflow-y: scroll;
+    grid-row-end: span 5;
+    background-color: aliceblue;
+    border-radius: 7px;
+    text-align: center;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col3[b-eypod7j6la] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding: 2%;
+    font-size: 30px;
+    color:black;
+    font-family: HP Simplified Hans;
+}
+
+.col4[b-eypod7j6la] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding: 2%;
+    color:black;
+    font-size: 30px;
+    font-family: HP Simplified Hans;
+}
+
+.table[b-eypod7j6la] {
+    margin: 10px;
+}
+.quote[b-eypod7j6la] {
+    text-align:center;
+    color:black;
+}

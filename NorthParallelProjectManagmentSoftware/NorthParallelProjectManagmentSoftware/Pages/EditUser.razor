@@ -1,0 +1,170 @@
+﻿@page "/editUser/{Id}"
+
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@inject ProjectServices projectServices
+@inject UserServices userServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+@if (user != null)
+{
+
+        <NavMenu />
+        <div class="head">
+            <h2>Edit User Details</h2>
+        </div>
+
+        <div class="editForm">
+            <EditForm Model="@user">
+                <DataAnnotationsValidator />
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="userName" class="control-label">User Name</label>
+                            <input form="userName" class="form-control" @bind="@user.UserName" />
+                            <ValidationMessage For="@(() => user.UserName)" />
+                        </div>
+                        <div class="form-group">
+                            <label for="UserAuthorityLevel" class="control-label"></label>
+                            <select @bind="@user.UserAuthorityLevel" class="form-control">
+                                <option value="">Select User Authority Level</option>
+                                <option value="Administrator">Administrator</option>
+                                <option value="Employee">Employee</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ticketDescription" class="control-label">Select Company</label>
+
+                            <select name="compaines" @onchange="@OnSelect" id="companyDropdown">
+                                @if (company is null)
+                                {
+                                    <p><em>Loading... !</em></p>
+                                }
+                                else
+                                {
+                                    <option value="" disabled selected>Select Company</option>
+
+                                    @foreach (var cmp in company)
+                                    {
+                                        <option value="@cmp.CompanyName">@cmp.CompanyName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ticketDescription" class="control-label">Select Project</label>
+
+                            <select name="projects" @onchange="@OnSelectProject" id="projectsDropdown">
+                                @if (project is null)
+                                {
+                                    <p><em>Loading... !</em></p>
+                                }
+                                else
+                                {
+                                    <option value="" disabled selected>Select Project</option>
+
+                                    @foreach (var prj in project)
+                                    {
+                                        <option value="@prj.ProjectName">@prj.ProjectName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="userState" class="control-label"></label>
+                            <select @bind="@user.UserState" class="form-control">
+                                <option value="">Select User State</option>
+                                <option value="Active">Active</option>
+                                <option value="Deactive">Deactive</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="userEmail" class="control-label">User Email</label>
+                            <input form="ticketDescription" type="email" class="form-control" @bind="@user.UserEmail" />
+                            <ValidationMessage For="@(() => user.UserEmail)" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" @onclick="@updateUser" value="Update User" />
+                            <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+                        </div>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+ 
+
+        
+}
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+    public string selectedString;
+
+    public string msg;
+    public string selectedProjectString;
+    public User user ;
+    List<Company> company;
+    List<Project> project;
+    List<Project> projects;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await Task.Run(() => userServices.GetUserAsync(Convert.ToInt32(Id)));
+        company = await Task.Run(() => companyServices.GetCompanyByMCompanyAsync(user.MainCompany));
+        projects = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(user.MainCompany));
+    }
+    async void OnSelect(ChangeEventArgs e)
+    {
+        selectedString = e.Value.ToString();
+
+        foreach (var cmp in company)
+        {
+
+            if (cmp.CompanyName == selectedString)
+            {
+
+                user.UserAssignedCompany = cmp;
+            }
+        }
+        project = projects.Where(f => f.ProjectCompany.CompanyName.Equals(selectedString)).ToList();
+    }
+
+    async void OnSelectProject(ChangeEventArgs e)
+    {
+        selectedProjectString = e.Value.ToString();
+
+        foreach (var prj in project)
+        {
+
+            if (prj.ProjectName == selectedProjectString)
+            {
+
+                user.UserAssignedProjects = prj;
+            }
+        }
+    }
+
+    protected async void updateUser()
+
+    {
+
+           await userServices.UpdateUserAsync(user);
+            NavigationManager.NavigateTo("userdashboard");
+        
+
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("viewUser/" + Id);
+    }
+
+}

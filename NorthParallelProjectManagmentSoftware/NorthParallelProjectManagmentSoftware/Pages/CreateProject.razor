@@ -1,0 +1,116 @@
+﻿@page "/createProjects"
+
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject ProjectServices projectServices
+@inject CompanyServices companyServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+<NavMenu/>
+@if (userSession != null)
+{
+<div class="createForm">
+    <div class="instructions">
+        <h2>Create Company</h2>
+        <p>*Fill the below form to create company</p>
+    </div>
+    <div class="form">
+        <EditForm Model="@company">
+            <DataAnnotationsValidator />
+    <form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="ticketName" class="control-label">Project Name</label>
+                <input form="ticketName" class="form-control" @bind="@project.ProjectName" />
+            </div>
+            <div class="form-group">
+                <label for="ticketDescription" class="control-label">Project Company</label>
+                <select name="compaines" @onchange="@OnSelect" id="companyDropdown">
+                    @if (company is null)
+                    {
+                        <p><em>Loading... !</em></p>
+                    }
+                    else
+                    {
+                        <option value="" disabled selected>Select Company</option>
+
+                        @foreach (var cmp in company)
+                        {
+                            <option value="@cmp.CompanyName">@cmp.CompanyName</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ticketDescription" class="control-label">Project Description</label>
+                <input form="ticketDescription" class="form-control" @bind="@project.ProjectDescription" />
+            </div>
+            <div class="form-group">
+                <label for="ticketDescription" class="control-label">Project Time Frame</label>
+                <label for="ticketDescription" class="control-label">Project Start Date</label>
+                <input form="ticketDescription" class="form-control" type="date" placeholder="dd-mm-yyyy" @bind="@projectStart" />
+                <label for="ticketDescription" class="control-label" placeholder="dd-mm-yyy">Project End Date</label>
+                <input form="ticketDescription" class="form-control" type="date" @bind="@projectEnd" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@createproject" value="Create Project" />
+
+            </div>
+        </div>
+    </div>
+</form>
+            </EditForm>
+        </div>
+    </div>
+}
+@code {
+
+    public User userSession;
+    private DateTime projectStart=DateTime.Now;
+    private DateTime projectEnd=DateTime.Now;
+    private string selectedString;
+
+    Project project = new Project();
+
+
+    List<Company> company;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        userSession = await session.GetItemAsync<User>("SessionUser");
+
+        company = await Task.Run(() => companyServices.GetCompanyByMCompanyAsync(userSession.MainCompany));
+    }
+
+    void OnSelect(ChangeEventArgs e)
+    {
+        selectedString = e.Value.ToString();
+
+        foreach (var comp in company) {
+
+            if (comp.CompanyName == selectedString) {
+                project.ProjectCompany = comp;
+            }
+        }
+
+
+    }
+
+
+    protected async void createproject()
+
+    {
+        project.ProjectStartDate = projectStart;
+        project.ProjectEndDate = projectEnd;
+        project.MainCompany = userSession.MainCompany;
+        await projectServices.InsertProjectAsync(project);
+        NavigationManager.NavigateTo("projectdashboard");
+    }
+}

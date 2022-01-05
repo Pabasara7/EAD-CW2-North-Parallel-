@@ -1,0 +1,60 @@
+.navitem[b-pk0185qqhq] {
+    display:inline;
+    font-family: HP Simplified Hans;
+    padding-top: 1%;
+    padding-right: 30px;
+}
+
+.navbar[b-pk0185qqhq] {
+
+    border-end-end-radius: 9px;
+    border-end-start-radius: 9px;
+}
+.menuItem[b-pk0185qqhq] {
+    font-family: HP Simplified Hans;
+    padding-left:10px;
+}
+.navitemLogout[b-pk0185qqhq] {
+    font-family: HP Simplified Hans;
+    color:white;
+    border-radius:7px;
+    background-color:red;
+    padding:1%;
+}
+    .navitemLogout:hover[b-pk0185qqhq] {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+.item[b-pk0185qqhq] {
+    font-family: HP Simplified Hans;
+    color: white;
+    padding-top: 1%;
+    padding-left:50%;
+    padding-right: 30px;
+}
+
+    .item:hover[b-pk0185qqhq] {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+.navoption[b-pk0185qqhq] {
+    color: white;
+    width: 15%;
+    font-size: 20px;
+}
+
+.navtite[b-pk0185qqhq] {
+    align-content: center;
+    color: dodgerblue;
+    font-family: HP Simplified Hans;
+    margin-right: 2%;
+    border: solid;
+    border-width: 0px;
+    border-radius: 5px;
+    font-size: 20px;
+    padding-left: 1%;
+    padding-right: 1%;
+    background-color: white;
+}

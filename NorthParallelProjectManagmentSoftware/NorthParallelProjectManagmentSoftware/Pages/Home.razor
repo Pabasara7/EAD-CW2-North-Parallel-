@@ -1,0 +1,75 @@
+﻿@page "/home"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject TicketServices ticketService
+@inject ProjectServices projectService
+@using NorthParallelProjectManagmentSoftware.Data;
+
+@if (user != null)
+{
+<body>
+
+    @if (@user.UserAuthorityLevel.Equals("Administrator"))
+    {
+        <NavMenu />
+        <div class="grid">
+            <div class="col1">
+                <p>Welcome to North Parallel<br /> @user.UserName</p>
+            </div>
+
+            <div class="col3">
+                <a href="projectReport"><p>Get Report On Project<span id="icon" class="oi oi-chevron-right"></span></p></a>
+            </div>
+            <div class="col4">
+                <a href="predictionReport"><p>Get Prediction Report<span id="icon" class="oi oi-chevron-right"></span></p></a>
+</div>
+        </div>
+
+    }
+    else
+    {
+
+
+      @if (user != null) {
+        <NavMenuEmp />
+        <div class="grid">
+            <div class="col1">
+                <p>Welcome to North Parallel<br /> @user.UserName</p>
+            </div>
+
+          
+            <div class="col3">
+                <p class="quote">"HARD WORK BEATS<br /> TALENT WHEN TALENT <br />DOESNT WORK HARD."</p>
+            </div>
+
+        </div>
+        }
+    }
+
+</body>
+        }
+        else
+        {
+
+        <p>Loading....</p>
+        }
+
+
+
+
+    @code {
+
+public User user;
+    List<Tickets> ticket;
+    List<Tickets> userTicket;
+    public string projName;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await session.GetItemAsync<User>("SessionUser");
+      
+    }
+
+
+    }

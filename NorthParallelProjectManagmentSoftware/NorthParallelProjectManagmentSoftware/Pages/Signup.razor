@@ -1,0 +1,115 @@
+﻿@page "/signup"
+@inject NavigationManager NavigationManager
+@inject UserServices userservices
+@inject CompanyServices companyServices
+@inject ProjectServices projectServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+<div class="split left">
+    <div class="centered">
+        <div class="signup">
+            <EditForm Model="@obj">
+                <DataAnnotationsValidator />
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="username" class="control-label">Username</label>
+                            <input form="username" placeholder="Enter username" class="form-control" @bind="@obj.UserName" required />
+                            <ValidationMessage For="@(()=>obj.UserName)" />
+                        </div>
+                        <div class="form-group">
+                            <label for="maincompany" class="control-label">Company Name</label>
+                            <input form="maincompany" placeholder="Enter name of the company" class="form-control" @bind="@obj.MainCompany" required />
+                            <ValidationMessage For="@(()=>obj.MainCompany)" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="control-label">User Email</label>
+                            <input form="email" placeholder="Enter Email" type="email" class="form-control" @bind="@obj.UserEmail" required />
+                            <ValidationMessage For="@(()=>obj.UserEmail)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="control-label">User Password</label>
+                            <input form="password" placeholder="Enter Password" type="password" class="form-control" @bind="@obj.UserPassword" required />
+                            <ValidationMessage For="@(()=>obj.UserPassword)" />
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="repassword" class="control-label">Re enter Password</label>
+                            <input form="repassword" placeholder="Re-enter Password" type="password" class="form-control" @bind="@confPassword" required />
+                            <p class="aler">@msg</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success btn-lg" @onclick="@CreateEmployee" value="Sign Up" />
+                            <input type="button" class="btn btn-danger btn-lg" @onclick="@Cancel" value="  Back  " />
+                        </div>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+<div class="split right">
+    <div class="centered">
+        <div class="info">
+            <div class="card">
+                <p>Welcome to North Parallel Project Managment System</p>
+
+            </div>
+            <div class="card">
+                <p>If you are registering a new company please fill the sign up form</p>
+
+            </div>
+            <div class="card">
+                <p>Else please contact your company/project administrator for your credentials</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private string confPassword;
+    private string msg;
+    private string selectedString;
+    private string selectedProjectString;
+
+    User obj = new User();
+
+
+    protected async void CreateEmployee()
+    {
+        if (obj.UserPassword == confPassword)
+        {
+            if (obj.UserName != null)
+            {
+                obj.UserAuthorityLevel = "Administrator";
+                obj.UserState = "Active";
+                await userservices.InsertUserAsync(obj);
+                NavigationManager.NavigateTo("");
+            }
+
+
+        }
+
+        else
+        {
+            msg = "Passwords do not match";
+        }
+
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("");
+    }
+
+}

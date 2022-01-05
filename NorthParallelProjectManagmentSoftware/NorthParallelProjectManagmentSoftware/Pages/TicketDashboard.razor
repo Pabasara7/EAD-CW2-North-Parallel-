@@ -1,0 +1,189 @@
+﻿@page "/ticketdashboard"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@inject ProjectServices projectServices
+@inject TicketServices ticketServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+
+@if (user != null)
+{
+
+    @if (@user.UserAuthorityLevel.Equals("Administrator"))
+    {
+        <NavMenu />
+        <div class=" head">
+            <button type="button" class="btn btn-success" @onclick="@createTicket">+ Create Ticket</button>
+
+            <h2 class="heading">Tickets</h2>
+
+        </div>
+        <div class="form-group">
+            <label for="ticketDescription" class="control-label">Select Project</label>
+
+            <select name="projects" @onchange="@OnSelect" id="projectDropdown">
+                @if (project is null)
+                {
+                    <p><em>Loading... !</em></p>
+                }
+                else
+                {
+                    <option value="" disabled selected>Select Project</option>
+
+                    <option value="all">All Projects</option>
+
+                    @foreach (var prj in project)
+                    {
+                        <option value="@prj.ProjectName">@prj.ProjectName</option>
+                    }
+                }
+            </select>
+        </div>
+        @if (tickets is null && user is null)
+        {
+            <p><em>Loading... !</em></p>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Ticket Id</th>
+                        <th>Ticket Name</th>
+                        <th>Ticket Description</th>
+                        <th>Ticket Assigned User</th>
+                        <th>Ticket Project</th>
+                        <th>Ticket Progress</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tck in tickets)
+                    {
+                        <tr>
+                            <td>@tck.TicketId</td>
+                            <a href="viewTicket/@tck.TicketId">
+
+                            <td>@tck.TicketName</td>
+                            </a>
+
+                            <td>@tck.TicketDescription</td>
+                            <td>@tck.TicketAssignedUser.UserName</td>
+                            <td>@tck.TicketProject.ProjectName</td>
+                            <td>@tck.TicketProgress</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+    else
+    {
+        <NavMenuEmp />
+        <div class=" head">
+            <button type="button" class="btn btn-success" @onclick="@createEmpTicket">+ Create Ticket</button>
+
+            <h2 class="heading">Your Tickets</h2>
+
+        </div>
+       
+        @if (userTicket is null && user is null)
+        {
+            <p><em>Loading... !</em></p>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Ticket Id</th>
+                        <th>Ticket Name</th>
+                        <th>Ticket Description</th>
+                        <th>Ticket Assigned User</th>
+                        <th>Ticket Project</th>
+                        <th>Ticket Progress</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tck in userTicket)
+                    {
+                        <tr>
+                            <td>@tck.TicketId</td>
+                            <a href="viewTicket/@tck.TicketId">
+
+                            <td>@tck.TicketName</td>
+                            </a>
+
+                            <td>@tck.TicketDescription</td>
+                            <td>@tck.TicketAssignedUser.UserName</td>
+                            <td>@tck.TicketProject.ProjectName</td>
+                            <td>@tck.TicketProgress</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    }
+}
+
+@code {
+
+    public User user;
+
+    private string selectedString;
+
+    List<Tickets> tickets;
+    List<Tickets> ticket;
+    List<Project> project;
+
+    List<Tickets> userTicket;
+    List<Project> projects;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await session.GetItemAsync<User>("SessionUser");
+        project = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(user.MainCompany));
+        tickets = await Task.Run(() => ticketServices.GetTicketByMCompanyAsync(user.MainCompany));
+        ticket = await Task.Run(() => ticketServices.GetTicketByMCompanyAsync(user.MainCompany));
+
+        userTicket = await Task.Run(() => ticketServices.GetTicketByMuserAsync(user.UserName));
+    }
+
+
+    public void createTicket()
+    {
+
+        NavigationManager.NavigateTo("createTicket");
+    }
+    public void createEmpTicket()
+    {
+
+        NavigationManager.NavigateTo("createEmpTicket");
+    }
+    async void OnSelect(ChangeEventArgs e)
+    {
+
+
+        selectedString = e.Value.ToString();
+
+        if (selectedString.Equals("all"))
+        {
+            projects = project;
+
+        }
+        else
+        {
+            tickets = ticket.Where(f => f.TicketProject.ProjectName.ToString().Equals(selectedString)).ToList();
+        }
+
+    }
+
+
+}
+
+
+

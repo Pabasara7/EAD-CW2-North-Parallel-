@@ -1,0 +1,148 @@
+﻿@page "/predictionReport"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject UserServices userservices
+@inject TicketServices ticketServices
+@inject CompanyServices companyServices
+@inject ProjectServices projectServices
+@using NorthParallelProjectManagmentSoftware.Data;
+<NavMenu />
+<div class="createForm">
+    <div class="instructions">
+        <h2>Generate prediction report </h2>
+        <p>*Select the date range you want to get the prediction on</p>
+    </div>
+    <div class="form">
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="form-group">
+                    <label for="fromDate" class="control-label">From : (DD-MM-YYYY)</label>
+                    <input form="toDate" type="date" class="form-control" @bind="@fromDate" />
+
+                </div>
+                <div class="form-group">
+                    <label for="ticketDescription" class="control-label">To : (DD-MM-YYYY)</label>
+                    <input form="ticketDescription" type="date" class="form-control" @bind="@toDate" />
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success btn-lg" @onclick="@getPrediction" value="Generate Report" />
+                    <input type="button" class="btn btn-danger btn-lg" @onclick="@Cancel" value="  Back  " />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@if (report == true)
+{
+
+    <h2 class="mainHeading">Prediction Report</h2>
+    <div class="grid">
+
+        <div class="col2">
+            <h2>Estimated Number of projects : @finalPredictedProjects</h2>
+        </div>
+        <div class="col3">
+            <h2>Estimated Number of Users Required : @finalUsersNeeded</h2>
+        </div>
+    </div>
+
+}
+@code {
+
+    public User userSession;
+    public bool report = false;
+    public DateTime toDate = DateTime.Now;
+    public DateTime fromDate = DateTime.Now;
+    List<User> users;
+    List<Project> projects;
+    public decimal noOfUsers;
+    public int noOfProjects;
+    public decimal NumberOfMonths;
+    public decimal NumberOfPredictMonths;
+    public decimal projectsPerMonth;
+    public decimal predictedProjects;
+    public int finalPredictedProjects;
+    public decimal averageUsersPerProject;
+    public decimal totalUsersNeeded;
+    public int finalUsersNeeded;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        userSession = await session.GetItemAsync<User>("SessionUser");
+        projects = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(userSession.MainCompany));
+        users = await Task.Run(() => userservices.GetUserMCompanyAsync(userSession.MainCompany));
+
+    }
+
+    void getPrediction()
+    {
+
+        noOfProjects = projects.Count();
+        noOfUsers = users.Count();
+
+
+        getNoOfProjects();
+        getNoOfUsersNeeded();
+        report = true;
+    }
+    void getNoOfProjects()
+    {
+
+        DateTime latestProject = DateTime.MinValue;
+        DateTime earliestProject = DateTime.Now;
+
+        foreach (var prj in projects)
+        {
+
+            if (prj.ProjectStartDate < earliestProject)
+            {
+
+                earliestProject = prj.ProjectStartDate;
+
+            }
+
+            if (prj.ProjectStartDate > latestProject)
+            {
+                latestProject = prj.ProjectStartDate;
+            }
+
+        }
+
+        NumberOfMonths = ((DateTime.Now.Year - earliestProject.Year) * 12) + DateTime.Now.Month - earliestProject.Month;
+        projectsPerMonth = noOfProjects / NumberOfMonths;
+        NumberOfPredictMonths = ((toDate.Year - fromDate.Year) * 12) + toDate.Month - fromDate.Month;
+        predictedProjects = projectsPerMonth * NumberOfPredictMonths;
+        Console.Write("Final "+predictedProjects);
+        finalPredictedProjects = Decimal.ToInt32(predictedProjects);
+        Console.Write("Final " + finalPredictedProjects);
+
+    }
+
+    void getNoOfUsersNeeded() {
+
+        averageUsersPerProject = noOfUsers / noOfProjects;
+        totalUsersNeeded = averageUsersPerProject * predictedProjects;
+        finalUsersNeeded = Decimal.ToInt32(totalUsersNeeded);
+
+    }
+
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("home");
+    }
+
+}

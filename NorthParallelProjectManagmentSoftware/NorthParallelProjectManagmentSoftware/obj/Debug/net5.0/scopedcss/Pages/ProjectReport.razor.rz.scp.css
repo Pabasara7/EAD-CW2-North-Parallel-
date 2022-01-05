@@ -1,0 +1,75 @@
+.grid[b-e1kfkk6ukg] {
+    padding-top: 4%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    margin-bottom:1%;
+}
+
+.mainHeading[b-e1kfkk6ukg] {
+    color: #4d94ff;
+    text-align:center;
+    font-family: HP Simplified Hans;
+}
+
+.col2[b-e1kfkk6ukg] {
+    overflow-y: scroll;
+    grid-row-end: span 5;
+    background-color: aliceblue;
+    border-radius: 7px;
+    text-align: center;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col3[b-e1kfkk6ukg] {
+    overflow-y: scroll;
+    grid-row-end: span 5;
+    background-color: aliceblue;
+    border-radius: 7px;
+    text-align: center;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col4[b-e1kfkk6ukg] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding: 2%;
+    color: black;
+    font-size: 30px;
+    font-family: HP Simplified Hans;
+}
+
+.table[b-e1kfkk6ukg] {
+    margin: 10px;
+}
+
+.quote[b-e1kfkk6ukg] {
+    text-align: center;
+    color: black;
+}
+.instructions[b-e1kfkk6ukg] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.form[b-e1kfkk6ukg] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    font-size: 18px;
+}

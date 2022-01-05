@@ -1,0 +1,106 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+@inject UserServices userservices
+@inject Blazored.SessionStorage.ISessionStorageService session
+@using NorthParallelProjectManagmentSoftware.Data;
+
+<div class="split left">
+    <div class="centered">
+        <h1 class="name"><b>WELCOME TO NORTH PARALLEL</b></h1>
+        <p class="desc"><b>PROJECT MANAGMENT SOFTWARE</b></p>
+    </div>
+</div>
+<div class="split right">
+    <div class="centered">
+        <div class="bordersetup">
+            <div class="contentLogin">
+                <EditForm Model="@obj">
+                    <DataAnnotationsValidator />
+
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <div class="form-group">
+                                <label for="email" class="control-label"><b>User Email</b></label>
+                                <input form="email" placeholder="Enter email address" type="email" class="form-control" @bind="@obj.UserEmail" required="required" />
+                                <ValidationMessage For="@(()=>obj.UserEmail)" />
+                            </div>
+                            <p>@message1</p>
+
+
+                            <div class="form-group">
+                                <label for="password" class="control-label"><b>User Password</b></label>
+                                <input form="password" placeholder="Enter Passwords" type="password" class="form-control" @bind="@obj.UserPassword" required="required" />
+                                <ValidationMessage For="@(()=>obj.UserPassword)" />
+                            </div>
+                            <p>@message2</p>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary btn-lg" @onclick="@signIn" value="Login" /><br><br>
+                                <p class="notify">New Company? Signup here </p>
+                                <input type="button" class="btn btn-primary btn-lg" @onclick="@signup" value="Sign Up" />
+                            </div>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+
+        </div>
+    </div>
+</div>
+@code {
+    private string message1;
+    private string message2;
+
+    User obj = new User();
+
+
+    protected async void signIn()
+    {
+        List<User> EmpObj;
+        EmpObj = await Task.Run(() => userservices.GetAllUsersAsync());
+
+        @foreach (var emp in EmpObj)
+        {
+            if (emp.UserEmail == obj.UserEmail)
+            {
+
+                if (emp.UserPassword == obj.UserPassword)
+                {
+
+                    obj = emp;
+
+                    await Task.Run(() => session.SetItemAsync("SessionUser", obj));
+                    NavigationManager.NavigateTo("home");
+                }
+                else
+                {
+
+                    message2 = "Invalid Password";
+
+                }
+            }
+
+            else
+            {
+
+                message1 = "Invalid Email";
+            }
+        }
+
+
+    }
+
+    void signup()
+    {
+
+        NavigationManager.NavigateTo("signup");
+    }
+
+}

@@ -1,0 +1,132 @@
+﻿@page "/projectdashboard"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@inject ProjectServices projectServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+@if (user != null)
+{
+      <NavMenu />
+        <div class=" head">
+            <button type="button" class="btn btn-success" @onclick="@createProject">+ Create Project</button>
+
+            <h2 class="heading">Projects</h2>
+
+        </div>
+        <div class="form-group">
+            <label for="ticketDescription" class="control-label">Select Company</label>
+
+            <select name="compaines" @onchange="@OnSelect" id="companyDropdown">
+                @if (company is null)
+                {
+                    <p><em>Loading... !</em></p>
+                }
+                else
+                {
+                    <option value="" disabled selected>Select Company</option>
+
+                    <option value="all">All Projects</option>
+
+                    @foreach (var cmp in company)
+                    {
+                        <option value="@cmp.CompanyName">@cmp.CompanyName</option>
+                    }
+                }
+            </select>
+        </div>
+        @if (project is null)
+        {
+            <p><em>Loading... !</em></p>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Project Id</th>
+                        <th>Project Name</th>
+                        <th>Project Description</th>
+                        <th>Project Company</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var prj in project)
+                    {
+                        <tr>
+                            <td>@prj.ProjectId</td>
+                            <a href="viewProject/@prj.ProjectId">
+
+                            <td>@prj.ProjectName</td>
+                            </a>
+
+                            <td>@prj.ProjectDescription</td>
+                            <td>@prj.ProjectCompany.CompanyName</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+}
+
+@code {
+
+    public User user = new User();
+    public User users = new User();
+    private string selectedString;
+    public Project userProject;
+    List<Company> company;
+    List<Project> project;
+
+    List<Project> projects;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await session.GetItemAsync<User>("SessionUser");
+        users = user;
+        users.MainCompany = user.MainCompany;
+
+
+        project = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(users.MainCompany));
+        projects = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(users.MainCompany));
+
+        company = await Task.Run(() => companyServices.GetCompanyByMCompanyAsync(users.MainCompany));
+    }
+
+
+    public void createProject()
+    {
+
+        NavigationManager.NavigateTo("createProjects");
+    }
+
+    public void home()
+    {
+
+        NavigationManager.NavigateTo("home");
+    }
+    async void OnSelect(ChangeEventArgs e)
+    {
+
+
+        selectedString = e.Value.ToString();
+
+        if (selectedString.Equals("all"))
+        {
+            project = projects;
+
+        }
+        else
+        {
+            project = projects.Where(f => f.ProjectCompany.CompanyName.Equals(selectedString)).ToList();
+        }
+
+    }
+
+
+}
+
+
+

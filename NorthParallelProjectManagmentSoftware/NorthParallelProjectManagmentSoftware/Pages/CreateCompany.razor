@@ -1,0 +1,74 @@
+﻿@page "/createCompany"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@using NorthParallelProjectManagmentSoftware.Data;
+@using System.Globalization
+
+
+<NavMenu/>
+<div class="createForm">
+    <div class="instructions">
+        <h2>Create Company</h2>
+        <p>*Fill the below form to create company</p>
+    </div>
+    <div class="form">
+        <EditForm Model="@company">
+            <DataAnnotationsValidator />
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="companyName" class="control-label">Company Name</label>
+                        <input form="companyName" placeholder="Enter Company Name" class="form-control" @bind="@company.CompanyName" />
+                        <ValidationMessage For="@(()=>company.CompanyName)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="companyDescription" class="control-label">Company Description</label>
+                        <input form="ticketDescription" placeholder="Enter Company Description" class="form-control" @bind="@company.CompanyDescription" />
+                        <ValidationMessage For="@(()=>company.CompanyDescription)" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" @onclick="@createcompany" value="Create Company" />
+                        <input type="button" class="btn btn-danger" @onclick="@Cancel" value="  Back  " />
+
+                    </div>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+
+</div>
+@code {
+
+    public User user;
+    public DateTime joinedDate = DateTime.Now;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await session.GetItemAsync<User>("SessionUser");
+
+    }
+    Company company = new Company();
+
+    protected async void createcompany()
+    {
+            company.CompanyJoinedDate = joinedDate;
+            company.MainCompany = user.MainCompany;
+            await companyServices.InsertCompanyAsync(company);
+            NavigationManager.NavigateTo("companydashboard");
+       
+    }
+
+    public void Cancel()
+    {
+
+        NavigationManager.NavigateTo("companydashboard");
+    }
+
+}

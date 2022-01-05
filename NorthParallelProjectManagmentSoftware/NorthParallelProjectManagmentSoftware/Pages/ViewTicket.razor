@@ -1,0 +1,133 @@
+﻿@page "/viewTicket/{Id}"
+
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@inject ProjectServices projectServices
+@inject UserServices userServices
+@inject TicketServices ticketServices 
+@inject IModalService Modal
+@using NorthParallelProjectManagmentSoftware.Data
+
+<NavMenu />
+<body>
+    <div class="col1">
+        <div class="head">
+
+            <button type="button" @onclick="editPage" class="btn btn-primary">Edit</button>
+            <button @onclick="@(() => { showModal = true; })" class="btn btn-danger">Delete</button>
+
+            @if (showModal)
+            {
+                <div class="modal fade show" id="myModal" style=" display: block;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Ticket Deletion</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this Ticket?
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" @onclick="@deleteTicket">Delete</button>
+                                <button type="button" class="btn btn-primary" @onclick="@(() => { showModal = false; })">Close</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-backdrop fade show"></div>
+
+            }
+
+
+        </div>
+
+        <h3>@ticket.TicketName</h3>
+        <br />
+        <p>Project Id : @ticket.TicketId</p>
+        <p>Company  : @compName</p> 
+        <p>Project : @projName</p>
+        <p>Assigned User : @userName</p>
+        <p>Ticket Progress : @ticket.TicketProgress</p>
+        <p>Ticket Current State : @ticket.TicketCurrentStateUpdate</p>
+        <p>Start Date : @ticket.TicketStartDate.ToString("dd-MM-yyyy")</p>
+
+    </div>
+
+</body>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+    public string projName;
+    public string compName;
+    public string userName;
+    bool showModal = false;
+    Tickets ticket = new Tickets();
+
+
+    List<User> user;
+    List<Project> project;
+    List<Company> company;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ticket = await Task.Run(() => ticketServices.GetTicketAsync(Convert.ToInt32(Id)));
+        project = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(ticket.MainCompany));
+        company = await Task.Run(() => companyServices.GetCompanyByMCompanyAsync(ticket.MainCompany));
+        user = await Task.Run(() => userServices.GetUserMCompanyAsync(ticket.MainCompany));
+
+
+        foreach (var prj in project) {
+
+            if (prj.ProjectName == ticket.TicketProject.ProjectName) {
+
+                projName = prj.ProjectName;
+            }
+        }
+        foreach (var cmp in company)
+        {
+
+            if (cmp.CompanyName == ticket.TicketCompany.CompanyName)
+            {
+
+                compName = cmp.CompanyName;
+            }
+        }
+        foreach (var usr in user)
+        {
+
+            if (usr.UserName == ticket.TicketAssignedUser.UserName)
+            {
+
+                userName = usr.UserName;
+            }
+        }
+
+
+    }
+
+
+
+    protected async void deleteTicket()
+    {
+        await ticketServices.DeleteTicketAsync(ticket);
+        NavigationManager.NavigateTo("ticketdashboard");
+    }
+    void editPage()
+    {
+        NavigationManager.NavigateTo("editTicket/" + Id);
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("ticketdashboard");
+    }
+}

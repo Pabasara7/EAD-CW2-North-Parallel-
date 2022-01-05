@@ -1,0 +1,84 @@
+﻿.grid {
+    padding-top: 4%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    margin-bottom: 1%;
+}
+
+.mainHeading {
+    background-color: aliceblue;
+    border-radius: 7px;
+    border:solid;
+    border-width:2px;
+    border-color:black;
+    padding:2%;
+    color: #4d94ff;
+    text-align: center;
+    font-family: HP Simplified Hans;
+}
+
+.col2 {
+    grid-row-end: span 5;
+    background-color: aliceblue;
+    border-radius: 7px;
+    text-align: center;
+    padding: 2%;
+    margin-bottom:5%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col3 {
+    grid-row-end: span 5;
+    background-color: aliceblue;
+    border-radius: 7px;
+    text-align: center;
+    margin-bottom: 5%;
+    padding: 3%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col4 {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding: 3%;
+    color: black;
+    font-size: 30px;
+    font-family: HP Simplified Hans;
+}
+
+.table {
+    margin: 10px;
+}
+
+.quote {
+    text-align: center;
+    color: black;
+}
+
+.instructions {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.form {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    font-size: 18px;
+}

@@ -1,0 +1,47 @@
+
+.head[b-17i0xwllxl] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    margin-top: 1%;
+    padding-left: 10px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 1%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.btn[b-17i0xwllxl] {
+    float: right;
+    margin-right: 1%;
+}
+
+table[b-17i0xwllxl] {
+    font-family: HP Simplified Hans;
+}
+
+.control-label[b-17i0xwllxl] {
+    font-family: HP Simplified Hans;
+    padding-right: 10px;
+}
+
+.form-group[b-17i0xwllxl] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+
+.col1[b-17i0xwllxl] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}

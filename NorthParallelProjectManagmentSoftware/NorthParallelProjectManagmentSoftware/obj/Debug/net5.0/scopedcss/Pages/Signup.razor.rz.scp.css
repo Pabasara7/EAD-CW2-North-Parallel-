@@ -1,0 +1,53 @@
+/* Split the screen in half */
+.split[b-nfie21fble] {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    background-image: linear-gradient(#4d94ff, white);
+    overflow-x: hidden;
+}
+/* Control the left side */
+.left[b-nfie21fble] {
+    left: 0;
+    font-family: HP Simplified Hans;
+    font-size: 23px;
+}
+/* Control the right side */
+.right[b-nfie21fble] {
+    right: 0;
+    font-family: HP Simplified Hans;
+    font-size: 23px;
+}
+
+.form-control[b-nfie21fble] {
+    width: 100%;
+}
+
+.signup[b-nfie21fble] {
+    padding-top: 10%;
+    padding-left: 10%;
+}
+
+.info[b-nfie21fble] {
+    padding-right: 15%;
+    padding-top: 15%;
+}
+
+.card[b-nfie21fble] {
+    margin-bottom: 5%;
+    border-radius: 15px;
+}
+
+p[b-nfie21fble] {
+    font-size: 25px;
+    text-align: center;
+    padding: 2%;
+}
+
+.aler[b-nfie21fble] {
+    font-size: 16px;
+    float: left;
+    color: red;
+}

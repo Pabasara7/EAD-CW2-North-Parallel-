@@ -1,0 +1,187 @@
+﻿@page "/userdashboard"
+@inject NavigationManager NavigationManager
+@inject Blazored.SessionStorage.ISessionStorageService session
+@inject CompanyServices companyServices
+@inject UserServices userServices
+@inject ProjectServices projectServices
+@using NorthParallelProjectManagmentSoftware.Data;
+
+
+<NavMenu />
+<div class=" head">
+    <button type="button" class="btn btn-success" @onclick="@createUser">+ Create User</button>
+
+    <h2 class="heading">Users</h2>
+
+</div>
+<div class="form-group">
+    <label for="ticketDescription" class="control-label">Select Company</label>
+
+    <select name="compaines" @onchange="@OnSelectProject" id="companyDropdown">
+        @if (company is null)
+        {
+            <p><em>Loading... !</em></p>
+        }
+        else
+        {
+            <option value="" disabled selected>Select Project</option>
+
+            <option value="all">All Projects</option>
+
+            @foreach (var prj in projects)
+            {
+                <option value="@prj.ProjectName">@prj.ProjectName</option>
+            }
+        }
+    </select>
+    <label for="ticketDescription" class="control-label">Select Company</label>
+
+    <select name="compaines" @onchange="@OnSelectCompany" id="companyDropdown">
+        @if (company is null)
+        {
+            <p><em>Loading... !</em></p>
+        }
+        else
+        {
+            <option value="" disabled selected>Select Company</option>
+
+            <option value="all">All Companies</option>
+
+            @foreach (var cmp in company)
+            {
+                <option value="@cmp.CompanyName">@cmp.CompanyName</option>
+            }
+        }
+    </select>
+</div>
+@if (users is null && userSession is null)
+{
+    <p><em>Loading... !</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="table-primary">
+            <tr>
+                <th>User Id</th>
+                <th>User Name</th>
+                <th>User Email</th>
+                <th>User Authority Level</th>
+                <th>User Project</th>
+                <th>User Company</th>
+                <th>User State</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usr in users)
+            {
+            <tr>
+                <td>@usr.UserId</td>
+                <a href="viewUser/@usr.UserId">
+
+                <td>@usr.UserName</td>
+                </a>
+                <td>@usr.UserEmail</td>
+                <td>@usr.UserAuthorityLevel</td>
+                @if (usr.UserAssignedProjects != null)
+                {
+                    <td>@usr.UserAssignedProjects.ProjectName</td>
+                }
+                else
+                {
+
+                    <td>"Not Assigned to project"</td>
+                }
+
+                @if (usr.UserAssignedCompany != null)
+                {
+                    <td>@usr.UserAssignedCompany.CompanyName</td>
+                }
+                else
+                {
+
+                    <td>"Not Assigned to company"</td>
+                }
+                <td>@usr.UserState</td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    public User userSession;
+    Company newCompany = new Company();
+    Project newProject = new Project();
+    private string selectedString;
+    List<Company> company;
+    List<User> users;
+    List<User> user;
+    List<Project> projects;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        userSession = await session.GetItemAsync<User>("SessionUser");
+
+        users = await Task.Run(() => userServices.GetUserMCompanyAsync(userSession.MainCompany));
+        user = await Task.Run(() => userServices.GetUserMCompanyAsync(userSession.MainCompany));
+
+        company = await Task.Run(() => companyServices.GetCompanyByMCompanyAsync(userSession.MainCompany));
+        projects = await Task.Run(() => projectServices.GetProjectByMainCompanyAsync(userSession.MainCompany));
+    }
+
+
+
+
+
+    public void createUser()
+    {
+
+        NavigationManager.NavigateTo("createUser");
+    }
+
+
+    async void OnSelectProject(ChangeEventArgs e)
+    {
+
+
+        selectedString = e.Value.ToString();
+
+        if (selectedString.Equals("all"))
+        {
+            users = user;
+
+        }
+        else
+        {
+            users = user.Where(f => f.UserAssignedProjects.ProjectName.Equals(selectedString)).ToList();
+        }
+
+    }
+
+    async void OnSelectCompany(ChangeEventArgs e)
+    {
+
+
+        selectedString = e.Value.ToString();
+
+        if (selectedString.Equals("all"))
+        {
+            users = user;
+
+        }
+        else
+        {
+            users = user.Where(f => f.UserAssignedCompany.CompanyName.Equals(selectedString)).ToList();
+        }
+
+    }
+
+}
+
+
+

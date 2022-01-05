@@ -1,0 +1,1117 @@
+/* _content/NorthParallelProjectManagmentSoftware/Pages/Account.razor.rz.scp.css */
+.col1[b-n4n7a7x731] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}
+
+.head[b-n4n7a7x731] {
+    float: right;
+    font-family: HP Simplified Hans;
+}
+
+.col2[b-n4n7a7x731] {
+    overflow-y: scroll;
+    border-radius: 7px;
+    margin: 5px;
+}
+
+table[b-n4n7a7x731] {
+    font-family: HP Simplified Hans;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/CompanyDashboard.razor.rz.scp.css */
+
+.head[b-n2o5ud4bjs] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    margin-top: 1%;
+    padding-left: 10px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 1%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.btn[b-n2o5ud4bjs] {
+    float: right;
+    margin-right: 1%;
+}
+
+table[b-n2o5ud4bjs] {
+    font-family: HP Simplified Hans;
+}
+
+.col1[b-n2o5ud4bjs] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/CreateCompany.razor.rz.scp.css */
+.instructions[b-4o1tkq69u0] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.form[b-4o1tkq69u0] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    font-size: 18px;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/CreateEmpTicket.razor.rz.scp.css */
+.instructions[b-wn8c76zxij] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.form[b-wn8c76zxij] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    font-size: 18px;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/CreateProject.razor.rz.scp.css */
+.instructions[b-aq14hod9tl] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.form[b-aq14hod9tl] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    font-size: 18px;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/CreateTicket.razor.rz.scp.css */
+.instructions[b-epq3rwmzke] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.form[b-epq3rwmzke] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    font-size: 18px;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/CreateUser.razor.rz.scp.css */
+.instructions[b-5oqodh1r3z] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.form[b-5oqodh1r3z] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    font-size: 18px;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/EditCompany.razor.rz.scp.css */
+.head[b-m8ttdy7qsm] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.editForm[b-m8ttdy7qsm] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/EditProject.razor.rz.scp.css */
+.head[b-kxxlzh4r9s] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.editForm[b-kxxlzh4r9s] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/EditTicket.razor.rz.scp.css */
+.head[b-ins21zxu29] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.editForm[b-ins21zxu29] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/EditUser.razor.rz.scp.css */
+.head[b-ddw3smzoqd] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.editForm[b-ddw3smzoqd] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/Home.razor.rz.scp.css */
+.grid[b-eypod7j6la] {
+    padding-top: 4%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 10px;
+}
+
+#icon[b-eypod7j6la] {
+    padding-top:3%;
+    padding-left:3%;
+}
+
+.col1[b-eypod7j6la] {
+    grid-row-end: span 3;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 40px;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col2[b-eypod7j6la] {
+    overflow-y: scroll;
+    grid-row-end: span 5;
+    background-color: aliceblue;
+    border-radius: 7px;
+    text-align: center;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col3[b-eypod7j6la] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding: 2%;
+    font-size: 30px;
+    color:black;
+    font-family: HP Simplified Hans;
+}
+
+.col4[b-eypod7j6la] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding: 2%;
+    color:black;
+    font-size: 30px;
+    font-family: HP Simplified Hans;
+}
+
+.table[b-eypod7j6la] {
+    margin: 10px;
+}
+.quote[b-eypod7j6la] {
+    text-align:center;
+    color:black;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/Login.razor.rz.scp.css */
+/* Split the screen in half */
+.split[b-vip5oal4l8] {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    background-image: linear-gradient(#4d94ff, white);
+    overflow-x: hidden;
+}
+/* Control the left side */
+.left[b-vip5oal4l8] {
+    left: 0;
+    font-family: HP Simplified Hans;
+    font-size: 20px;
+}
+
+/* Control the right side */
+.right[b-vip5oal4l8] {
+    right: 0;
+    font-family: HP Simplified Hans;
+    font-size: 20px;
+}
+
+.notify[b-vip5oal4l8] {
+    font-family: HP Simplified Hans;
+    font-size: 20px;
+}
+/* If you want the content centered horizontally and vertically */
+.centered[b-vip5oal4l8] {
+    padding-top: 20%;
+    top: 50%;
+    left: 50%;
+}
+
+.name[b-vip5oal4l8] {
+    padding-top: 7%;
+    font-family: HP Simplified Hans;
+    font-size: 60px;
+    text-align: center;
+    text-shadow: 3px 3px 3px white;
+    color: black;
+    margin-bottom: 35px;
+    padding-left: 8%;
+}
+
+.bordersetup[b-vip5oal4l8] {
+    border: solid;
+    align-items: center;
+    border-color: #cccccc;
+    width: 80%;
+    background-color: azure;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+.contentLogin[b-vip5oal4l8] {
+    align-content: center;
+    padding: 5%;
+}
+
+.row[b-vip5oal4l8] {
+    padding-left: 10%;
+}
+
+.desc[b-vip5oal4l8] {
+    padding-top: 7%;
+    font-family: HP Simplified Hans;
+    font-size: 30px;
+    text-align: center;
+    text-shadow: 3px 3px 3px white;
+    color: black;
+    margin-bottom: 35px;
+    padding-left: 8%;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/PredictionReport.razor.rz.scp.css */
+.grid[b-g578twcgbm] {
+    padding-top: 4%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    margin-bottom: 1%;
+}
+
+.mainHeading[b-g578twcgbm] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    border:solid;
+    border-width:2px;
+    border-color:black;
+    padding:2%;
+    color: #4d94ff;
+    text-align: center;
+    font-family: HP Simplified Hans;
+}
+
+.col2[b-g578twcgbm] {
+    grid-row-end: span 5;
+    background-color: aliceblue;
+    border-radius: 7px;
+    text-align: center;
+    padding: 2%;
+    margin-bottom:5%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col3[b-g578twcgbm] {
+    grid-row-end: span 5;
+    background-color: aliceblue;
+    border-radius: 7px;
+    text-align: center;
+    margin-bottom: 5%;
+    padding: 3%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col4[b-g578twcgbm] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding: 3%;
+    color: black;
+    font-size: 30px;
+    font-family: HP Simplified Hans;
+}
+
+.table[b-g578twcgbm] {
+    margin: 10px;
+}
+
+.quote[b-g578twcgbm] {
+    text-align: center;
+    color: black;
+}
+
+.instructions[b-g578twcgbm] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.form[b-g578twcgbm] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    font-size: 18px;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/ProjectDashboard.razor.rz.scp.css */
+
+.head[b-k4g64e52h1] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    margin-top: 1%;
+    padding-left: 10px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 1%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.btn[b-k4g64e52h1] {
+    float: right;
+    margin-right: 1%;
+}
+
+table[b-k4g64e52h1] {
+    font-family: HP Simplified Hans;
+}
+
+.control-label[b-k4g64e52h1] {
+    font-family: HP Simplified Hans;
+    padding-right: 10px;
+}
+
+.form-group[b-k4g64e52h1] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+
+.col1[b-k4g64e52h1] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/ProjectDashboardEmp.razor.rz.scp.css */
+
+.head[b-z1xu9sv4rn] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    margin-top: 1%;
+    padding-left: 10px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 1%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.btn[b-z1xu9sv4rn] {
+    float: right;
+    margin-right: 1%;
+}
+
+table[b-z1xu9sv4rn] {
+    font-family: HP Simplified Hans;
+}
+
+.control-label[b-z1xu9sv4rn] {
+    font-family: HP Simplified Hans;
+    padding-right: 10px;
+}
+
+.form-group[b-z1xu9sv4rn] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+
+.col1[b-z1xu9sv4rn] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/ProjectReport.razor.rz.scp.css */
+.grid[b-e1kfkk6ukg] {
+    padding-top: 4%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    margin-bottom:1%;
+}
+
+.mainHeading[b-e1kfkk6ukg] {
+    color: #4d94ff;
+    text-align:center;
+    font-family: HP Simplified Hans;
+}
+
+.col2[b-e1kfkk6ukg] {
+    overflow-y: scroll;
+    grid-row-end: span 5;
+    background-color: aliceblue;
+    border-radius: 7px;
+    text-align: center;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col3[b-e1kfkk6ukg] {
+    overflow-y: scroll;
+    grid-row-end: span 5;
+    background-color: aliceblue;
+    border-radius: 7px;
+    text-align: center;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.col4[b-e1kfkk6ukg] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding: 2%;
+    color: black;
+    font-size: 30px;
+    font-family: HP Simplified Hans;
+}
+
+.table[b-e1kfkk6ukg] {
+    margin: 10px;
+}
+
+.quote[b-e1kfkk6ukg] {
+    text-align: center;
+    color: black;
+}
+.instructions[b-e1kfkk6ukg] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: #4d94ff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.form[b-e1kfkk6ukg] {
+    border-radius: 7px;
+    background-color: aliceblue;
+    font-family: 'HP Simplified Hans';
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    font-size: 18px;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/Signup.razor.rz.scp.css */
+/* Split the screen in half */
+.split[b-nfie21fble] {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    background-image: linear-gradient(#4d94ff, white);
+    overflow-x: hidden;
+}
+/* Control the left side */
+.left[b-nfie21fble] {
+    left: 0;
+    font-family: HP Simplified Hans;
+    font-size: 23px;
+}
+/* Control the right side */
+.right[b-nfie21fble] {
+    right: 0;
+    font-family: HP Simplified Hans;
+    font-size: 23px;
+}
+
+.form-control[b-nfie21fble] {
+    width: 100%;
+}
+
+.signup[b-nfie21fble] {
+    padding-top: 10%;
+    padding-left: 10%;
+}
+
+.info[b-nfie21fble] {
+    padding-right: 15%;
+    padding-top: 15%;
+}
+
+.card[b-nfie21fble] {
+    margin-bottom: 5%;
+    border-radius: 15px;
+}
+
+p[b-nfie21fble] {
+    font-size: 25px;
+    text-align: center;
+    padding: 2%;
+}
+
+.aler[b-nfie21fble] {
+    font-size: 16px;
+    float: left;
+    color: red;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/TicketDashboard.razor.rz.scp.css */
+
+.head[b-jsorutemzi] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    margin-top: 1%;
+    padding-left: 10px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 1%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.btn[b-jsorutemzi] {
+    float: right;
+    margin-right: 1%;
+}
+
+table[b-jsorutemzi] {
+    font-family: HP Simplified Hans;
+}
+
+.control-label[b-jsorutemzi] {
+    font-family: HP Simplified Hans;
+    padding-right: 10px;
+}
+
+.form-group[b-jsorutemzi] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/UserDashboard.razor.rz.scp.css */
+
+.head[b-17i0xwllxl] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    margin-top: 1%;
+    padding-left: 10px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 1%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+.btn[b-17i0xwllxl] {
+    float: right;
+    margin-right: 1%;
+}
+
+table[b-17i0xwllxl] {
+    font-family: HP Simplified Hans;
+}
+
+.control-label[b-17i0xwllxl] {
+    font-family: HP Simplified Hans;
+    padding-right: 10px;
+}
+
+.form-group[b-17i0xwllxl] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+
+
+.col1[b-17i0xwllxl] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/ViewCompany.razor.rz.scp.css */
+.col1[b-vxtzl7oaa4] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}
+
+.head[b-vxtzl7oaa4] {
+    float: right;
+    font-family: HP Simplified Hans;
+}
+
+.col2[b-vxtzl7oaa4] {
+    overflow-y: scroll;
+    border-radius: 7px;
+    margin: 5px;
+}
+
+table[b-vxtzl7oaa4] {
+    font-family: HP Simplified Hans;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/ViewProject.razor.rz.scp.css */
+.col1[b-9m0pg0djh5] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}
+
+.head[b-9m0pg0djh5] {
+    float: right;
+    font-family: HP Simplified Hans;
+}
+
+.col2[b-9m0pg0djh5] {
+    overflow-y: scroll;
+    border-radius: 7px;
+    margin: 5px;
+}
+
+table[b-9m0pg0djh5] {
+    font-family: HP Simplified Hans;
+}
+
+.sub[b-9m0pg0djh5] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    margin-top: 1%;
+    padding-left: 10px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/ViewTicket.razor.rz.scp.css */
+.col1[b-7tvvu15lj6] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}
+
+.head[b-7tvvu15lj6] {
+    float: right;
+    font-family: HP Simplified Hans;
+}
+
+.col2[b-7tvvu15lj6] {
+    overflow-y: scroll;
+    border-radius: 7px;
+    margin: 5px;
+}
+
+table[b-7tvvu15lj6] {
+    font-family: HP Simplified Hans;
+}
+
+.sub[b-7tvvu15lj6] {
+    background-color: aliceblue;
+    border-radius: 7px;
+    margin-top: 1%;
+    padding-left: 10px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+    font-family: HP Simplified Hans;
+    color: #4d94ff;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Pages/ViewUser.razor.rz.scp.css */
+.col1[b-mqjl65qqlj] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 1%;
+    font-size: 17px;
+    font-family: HP Simplified Hans;
+    background-color: aliceblue;
+    border-radius: 7px;
+}
+
+.head[b-mqjl65qqlj] {
+    float: right;
+    font-family: HP Simplified Hans;
+}
+
+.col2[b-mqjl65qqlj] {
+    overflow-y: scroll;
+    border-radius: 7px;
+    margin: 5px;
+}
+
+table[b-mqjl65qqlj] {
+    font-family: HP Simplified Hans;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Shared/MainLayout.razor.rz.scp.css */
+.page[b-pz6p1dnszh] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main[b-pz6p1dnszh] {
+    flex: 1;
+}
+
+.sidebar[b-pz6p1dnszh] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row[b-pz6p1dnszh] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-pz6p1dnszh]  a, .top-row .btn-link[b-pz6p1dnszh] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-pz6p1dnszh] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-pz6p1dnszh] {
+        display: none;
+    }
+
+    .top-row.auth[b-pz6p1dnszh] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-pz6p1dnszh], .top-row .btn-link[b-pz6p1dnszh] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-pz6p1dnszh] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-pz6p1dnszh] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-pz6p1dnszh] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .main > div[b-pz6p1dnszh] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* _content/NorthParallelProjectManagmentSoftware/Shared/NavMenu.razor.rz.scp.css */
+.navitem[b-pk0185qqhq] {
+    display:inline;
+    font-family: HP Simplified Hans;
+    padding-top: 1%;
+    padding-right: 30px;
+}
+
+.navbar[b-pk0185qqhq] {
+
+    border-end-end-radius: 9px;
+    border-end-start-radius: 9px;
+}
+.menuItem[b-pk0185qqhq] {
+    font-family: HP Simplified Hans;
+    padding-left:10px;
+}
+.navitemLogout[b-pk0185qqhq] {
+    font-family: HP Simplified Hans;
+    color:white;
+    border-radius:7px;
+    background-color:red;
+    padding:1%;
+}
+    .navitemLogout:hover[b-pk0185qqhq] {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+.item[b-pk0185qqhq] {
+    font-family: HP Simplified Hans;
+    color: white;
+    padding-top: 1%;
+    padding-left:50%;
+    padding-right: 30px;
+}
+
+    .item:hover[b-pk0185qqhq] {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+.navoption[b-pk0185qqhq] {
+    color: white;
+    width: 15%;
+    font-size: 20px;
+}
+
+.navtite[b-pk0185qqhq] {
+    align-content: center;
+    color: dodgerblue;
+    font-family: HP Simplified Hans;
+    margin-right: 2%;
+    border: solid;
+    border-width: 0px;
+    border-radius: 5px;
+    font-size: 20px;
+    padding-left: 1%;
+    padding-right: 1%;
+    background-color: white;
+}
+/* _content/NorthParallelProjectManagmentSoftware/Shared/NavMenuEmp.razor.rz.scp.css */
+.navitem[b-cyaghdzsz5] {
+    font-family: HP Simplified Hans;
+    padding-top: 1%;
+    padding-right: 30px;
+}
+
+.navbar[b-cyaghdzsz5] {
+    border-end-end-radius: 9px;
+    border-end-start-radius: 9px;
+}
+
+.menuItem[b-cyaghdzsz5] {
+    font-family: HP Simplified Hans;
+    padding-left: 10px;
+}
+
+.navitemLogout[b-cyaghdzsz5] {
+    font-family: HP Simplified Hans;
+    color: white;
+    border-radius: 7px;
+    background-color: red;
+    padding: 1%;
+}
+
+    .navitemLogout:hover[b-cyaghdzsz5] {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+.item[b-cyaghdzsz5] {
+    font-family: HP Simplified Hans;
+    color: white;
+    padding-top: 1%;
+    padding-left: 160%;
+    padding-right: 30px;
+}
+
+    .item:hover[b-cyaghdzsz5] {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+.navoption[b-cyaghdzsz5] {
+    color: white;
+    width: 15%;
+    font-size: 20px;
+}
+
+.navtite[b-cyaghdzsz5] {
+    align-content: center;
+    color: dodgerblue;
+    font-family: HP Simplified Hans;
+    margin-right: 2%;
+    border: solid;
+    border-width: 0px;
+    border-radius: 5px;
+    font-size: 20px;
+    padding-left: 1%;
+    padding-right: 1%;
+    background-color: white;
+}

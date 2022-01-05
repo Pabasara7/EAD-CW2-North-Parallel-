@@ -1,0 +1,75 @@
+/* Split the screen in half */
+.split[b-vip5oal4l8] {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    background-image: linear-gradient(#4d94ff, white);
+    overflow-x: hidden;
+}
+/* Control the left side */
+.left[b-vip5oal4l8] {
+    left: 0;
+    font-family: HP Simplified Hans;
+    font-size: 20px;
+}
+
+/* Control the right side */
+.right[b-vip5oal4l8] {
+    right: 0;
+    font-family: HP Simplified Hans;
+    font-size: 20px;
+}
+
+.notify[b-vip5oal4l8] {
+    font-family: HP Simplified Hans;
+    font-size: 20px;
+}
+/* If you want the content centered horizontally and vertically */
+.centered[b-vip5oal4l8] {
+    padding-top: 20%;
+    top: 50%;
+    left: 50%;
+}
+
+.name[b-vip5oal4l8] {
+    padding-top: 7%;
+    font-family: HP Simplified Hans;
+    font-size: 60px;
+    text-align: center;
+    text-shadow: 3px 3px 3px white;
+    color: black;
+    margin-bottom: 35px;
+    padding-left: 8%;
+}
+
+.bordersetup[b-vip5oal4l8] {
+    border: solid;
+    align-items: center;
+    border-color: #cccccc;
+    width: 80%;
+    background-color: azure;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+.contentLogin[b-vip5oal4l8] {
+    align-content: center;
+    padding: 5%;
+}
+
+.row[b-vip5oal4l8] {
+    padding-left: 10%;
+}
+
+.desc[b-vip5oal4l8] {
+    padding-top: 7%;
+    font-family: HP Simplified Hans;
+    font-size: 30px;
+    text-align: center;
+    text-shadow: 3px 3px 3px white;
+    color: black;
+    margin-bottom: 35px;
+    padding-left: 8%;
+}
